@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DoorLock</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      background: #fef3c7;
+      font-family: 'Comic Neue', cursive;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #1e40af;
+      margin-bottom: 1rem;
+    }
+    .status {
+      font-size: 4rem;
+      margin-bottom: 2rem;
+    }
+    .button {
+      width: 200px;
+      padding: 1.5rem;
+      margin: 1rem;
+      font-size: 1.5rem;
+      border-radius: 20px;
+      border: 4px solid black;
+      box-shadow: 4px 4px 0px #000;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      user-select: none;
+    }
+    .button:active {
+      transform: scale(0.95);
+      box-shadow: 2px 2px 0px #000;
+    }
+    .lock {
+      background: #ef4444;
+    }
+    .unlock {
+      background: #22c55e;
+    }
+  </style>
+</head>
+<body>
+  <div class="status" id="doorStatus">ðŸ”</div>
+  <div class="button lock" onclick="sendCommand('lock')">ðŸ”’ LOCK</div>
+  <div class="button unlock" onclick="sendCommand('unlock')">ðŸ”“ UNLOCK</div>
+
+  <script>
+    function sendCommand(command) {
+      console.log("Command sent:", command);
+
+      fetch(`/api/${command}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ action: command })
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log("Server response:", data);
+        updateStatus(data.status);
+      })
+      .catch(error => {
+        console.error("Error sending command:", error);
+      });
+    }
+
+    function updateStatus(status) {
+      const statusEl = document.getElementById("doorStatus");
+      if (status === "locked") {
+        statusEl.textContent = "ðŸ”";
+      } else {
+        statusEl.textContent = "ðŸ”“";
+      }
+    }
+  </script>
+</body>
+</html>
