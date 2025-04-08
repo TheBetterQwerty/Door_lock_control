@@ -24,8 +24,10 @@ An IoT door locking system using an ESP32. Sends lock/unlock logs to a Discord c
 1. Clone the repository:
    ```bash
    git clone https://github.com/yourusername/esp32-door-lock.git
-   cd esp32-door-lock'''
+   cd esp32-door-lock```
    
-2. Add your Wi-Fi and Discord webhook info to the config:
+2. Add your Wi-Fi info to the config:
+   ```c
    #define WIFI_SSID "your-ssid"
    #define WIFI_PASS "your-password"
+   ```
