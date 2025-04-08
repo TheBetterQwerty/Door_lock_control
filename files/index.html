@@ -52,9 +52,10 @@
   </style>
 </head>
 <body>
-  <div class="status" id="doorStatus">ðŸ”</div>
-  <div class="button lock" onclick="sendCommand('lock')">ðŸ”’ LOCK</div>
-  <div class="button unlock" onclick="sendCommand('unlock')">ðŸ”“ UNLOCK</div>
+  <h1>DoorLock</h1>
+  <div class="status" id="doorStatus">🔒</div>
+  <div class="button lock" onclick="sendCommand('lock')">🔒 LOCK</div>
+  <div class="button unlock" onclick="sendCommand('unlock')">🔓 UNLOCK</div>
 
   <script>
     function sendCommand(command) {
@@ -85,9 +86,9 @@
     function updateStatus(status) {
       const statusEl = document.getElementById("doorStatus");
       if (status === "locked") {
-        statusEl.textContent = "ðŸ”";
+        statusEl.textContent = "🔒";
       } else {
-        statusEl.textContent = "ðŸ”“";
+        statusEl.textContent = "🔓";
       }
     }
   </script>
